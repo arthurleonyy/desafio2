@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS pessoa (
+  IdPessoa int NOT NULL auto_increment,
+  Nome varchar(100) NULL,
+  Cpf varchar(11) NOT NULL,
+  DataNascimento date NOT NULL,
+  PRIMARY KEY (`IdPessoa`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS conta (
+  IdConta int NOT NULL auto_increment,
+  IdPessoa int NOT NULL,
+  Saldo decimal(10,2) NOT NULL,
+  LimiteSaqueDiario decimal(10,2) NOT NULL,
+  FlagAtivo tinyint NOT NULL,
+  TipoConta int NOT NULL,
+  DataCriacao date NOT NULL,
+  PRIMARY KEY (`IdConta`),
+  FOREIGN KEY (`IdPessoa`) REFERENCES `pessoa` (`IdPessoa`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS transacao (
+  IdTransacao int NOT NULL auto_increment,
+  IdConta int NOT NULL,
+  Valor decimal(10,2) NOT NULL,
+  DataTransacao date NOT NULL,
+  PRIMARY KEY (`IdTransacao`),
+  FOREIGN KEY (`IdConta`) REFERENCES `conta` (`IdConta`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `desafio_conta`.`pessoa` (`IdPessoa`, `Nome`, `Cpf`, `DataNascimento`) 
+VALUES ('1', 'arthur leony', '11111111111', '1995-03-27');
